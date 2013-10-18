@@ -83,12 +83,12 @@ func parseFileName(name string) (d Data, err error) {
 func buckle(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 
-	if len(parts) != 3 {
+	if len(parts) != 2 {
 		invalidRequest(w, r)
 		return
 	}
 
-	d, err := parseFileName(parts[2])
+	d, err := parseFileName(parts[1])
 	if err != nil {
 		invalidRequest(w, r)
 		return
@@ -107,8 +107,6 @@ func buckle(w http.ResponseWriter, r *http.Request) {
 
 	makePngShield(w, d)
 }
-
-const basePkg = "github.com/fjcaetano/buckler"
 
 func fatal(msg string) {
 	fmt.Println(msg)

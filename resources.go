@@ -1,7 +1,6 @@
 package main
 
 import (
-	"go/build"
 	"log"
 	"os"
 	"path/filepath"
@@ -33,12 +32,7 @@ func resourcePaths() (staticPath string, dataPath string) {
 		return
 	}
 
-	p, err := build.Default.Import(basePkg, "", build.FindOnly)
-	if err != nil {
-		log.Fatal("Could not find package dir")
-	}
-
-	staticPath = filepath.Join(p.Dir, "static")
-	dataPath = filepath.Join(p.Dir, "data")
+	staticPath = filepath.Join(".", "static")
+	dataPath = filepath.Join(".", "data")
 	return
 }
