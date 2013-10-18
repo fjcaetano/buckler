@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -109,15 +108,7 @@ func buckle(w http.ResponseWriter, r *http.Request) {
 	makePngShield(w, d)
 }
 
-const basePkg = "github.com/jbowes/buckler"
-
-func index(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, filepath.Join(staticPath, "index.html"))
-}
-
-func favicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, filepath.Join(staticPath, "favicon.png"))
-}
+const basePkg = "github.com/fjcaetano/buckler"
 
 func fatal(msg string) {
 	fmt.Println(msg)
@@ -225,9 +216,7 @@ func main() {
 		*host = ""
 	}
 
-	http.HandleFunc("/v1/", buckle)
-	http.HandleFunc("/favicon.png", favicon)
-	http.HandleFunc("/", index)
+	http.HandleFunc("/", buckle)
 
 	log.Println("Listening on port", *port)
 	http.ListenAndServe(*host+":"+strconv.Itoa(*port), nil)
